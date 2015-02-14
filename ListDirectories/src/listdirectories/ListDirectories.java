@@ -1,11 +1,12 @@
 package listdirectories;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class ListDirectories {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         TraverseDirectories directories = new TraverseDirectories();
         List<File> files;
         

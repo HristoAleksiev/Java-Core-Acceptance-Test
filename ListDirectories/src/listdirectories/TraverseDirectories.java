@@ -11,11 +11,14 @@ public class TraverseDirectories {
     private final List<File> uniqueFiles = new ArrayList<>();
     private File root;
     
-    public List listDuplicatingFiles(String dir){
+    public List listDuplicatingFiles(String dir) throws FileNotFoundException{
         root = new File(dir);
         
-        if (root.isDirectory()) {
+        if (root.exists()) {
             addFiles(root, root.listFiles());
+        }
+        else{
+            throw new FileNotFoundException("The directory was not found!");
         }
         
         return uniqueFiles;
