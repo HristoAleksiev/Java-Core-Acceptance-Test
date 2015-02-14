@@ -15,7 +15,7 @@ public class TraverseDirectories {
         root = new File(dir);
         
         if (root.exists()) {
-            addFiles(root, root.listFiles());
+            addFiles(root.listFiles());
         }
         else{
             throw new FileNotFoundException("The directory was not found!");
@@ -24,10 +24,10 @@ public class TraverseDirectories {
         return uniqueFiles;
     }
     
-    private void addFiles(File parent, File[] parentFiles){
+    private void addFiles(File[] parentFiles){
         for (File parentFile : parentFiles) {
             if (parentFile.isDirectory()) {
-                addFiles(new File(parentFile.getPath()), parentFile.listFiles());
+                addFiles(parentFile.listFiles());
             } else {
                 if (isFileContentUnique(parentFile)) {
                     uniqueFiles.add(parentFile);
