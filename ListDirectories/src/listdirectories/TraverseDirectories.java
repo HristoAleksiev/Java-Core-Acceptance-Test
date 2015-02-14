@@ -33,6 +33,25 @@ public class TraverseDirectories {
         }
     }
     
+    private boolean isFileContentUnique(File file){
+        for (File uniqueFile : uniqueFiles) {
+            if (compareFiles(file, uniqueFile)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private boolean compareFiles(File file, File fileTwo){
+        
+        // Thought it was better to see what is happening when the 
+        //  program is running
+        System.out.println("Comparing: \n \"" + file.getName() + 
+                "\" and \"" + fileTwo.getName() + "\"");
+        
+        return (readFile(file).compareTo(readFile(fileTwo)) == 0);
+    }
+    
     private String readFile(File file){
         FileInputStream fileInput;
         StringBuilder builder = new StringBuilder();
@@ -55,24 +74,5 @@ public class TraverseDirectories {
         }
         
         return builder.toString();
-    }
-    
-    private boolean compareFiles(File file, File fileTwo){
-        
-        // Thought it was better to see what is happening when the 
-        //  program is running
-        System.out.println("Comparing: \n \"" + file.getName() + 
-                "\" and \"" + fileTwo.getName() + "\"");
-        
-        return (readFile(file).compareTo(readFile(fileTwo)) == 0);
-    }
-    
-    private boolean isFileContentUnique(File file){
-        for (File uniqueFile : uniqueFiles) {
-            if (compareFiles(file, uniqueFile)) {
-                return false;
-            }
-        }
-        return true;
     }
 }
