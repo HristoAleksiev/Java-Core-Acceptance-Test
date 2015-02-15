@@ -11,7 +11,7 @@ public class TraverseDirectories {
     private final List<File> uniqueFiles = new ArrayList<>();
     private File root;
     
-    public List listDuplicatingFiles(String dir) throws FileNotFoundException{
+    public List<File> listDuplicatingFiles(String dir) throws FileNotFoundException{
         root = new File(dir);
         
         if (root.exists()) {
@@ -62,7 +62,7 @@ public class TraverseDirectories {
         
         try{
             fileInput = new FileInputStream(file);
-            int read = 0;
+            int read;
             
             while((read = fileInput.read(buffer)) != -1){
                 builder.append(read);
