@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmallestSubstring {
-    private char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+    private final char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     private List<Character> bufferAlphabet = new ArrayList<>();
     public List<Element> shortestSubstring = new ArrayList<>();
     public List<List<Element>> substringVariants = new ArrayList<>();
@@ -88,7 +88,7 @@ public class SmallestSubstring {
     }
     
     private List<Element> getShortestList(List<List<Element>> listOfLists){
-        List<Element> shortest = new ArrayList();
+        List<Element> shortest = new ArrayList<>();
         int size = Integer.MAX_VALUE;
         for (List<Element> list : listOfLists) {
                 if (list.size() <= size) {
