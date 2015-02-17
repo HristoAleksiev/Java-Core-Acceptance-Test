@@ -10,27 +10,43 @@ public class SmallestSubstring {
     public List<List<Element>> substringVariants = new ArrayList<>();
     public List<List<Element>> substringVariantsEnhanced = new ArrayList<>();
     
-    private void fillBufferAlphabet(){
-        bufferAlphabet = new ArrayList<>();
-        for (char letter : alphabet) {
-            bufferAlphabet.add(letter);
-        }
+    public String smallestSubstringContainingTheAlphabet(String str){
+        List<Element> shortest;
+        getAllListsWithAlphabet(str);
+        shortest = getShortestList(substringVariants);
+        int begining = shortest.get(0).GetPosition();
+        int end = shortest.get(shortest.size() - 1).GetPosition() + 1;
+        return str.substring(begining, end);
     }
     
-    private boolean containsAlphabet(List<Element> str){
-        for (Element element : str) {
-            for (int i = 0; i < bufferAlphabet.size(); i++) {
-                if (element.GetValue() == bufferAlphabet.get(i)) {
-                    bufferAlphabet.remove(i);
-                }
-            }
-        }
-        boolean isEmpty = bufferAlphabet.isEmpty();
+    //  Iterates through all posible substrings excluding characters
+    //  from the beggining of the string
+    private void getAllListsWithAlphabet(String str){
+        List<Element> onlyLetters = getOnlyLetters(str);
         fillBufferAlphabet();
         
-        return isEmpty;
+        while(onlyLetters.size() >= alphabet.length){
+            if (containsAlphabet(onlyLetters)) {
+                substringVariants.add(getShortestVariant(deepCopy(onlyLetters)));
+            }
+            onlyLetters.remove(0);
+        }
     }
     
+    //  For each posible substring from "getAllListsWithAlphabet()" returns
+    //  its shortest variant excluding characters from the end of the string
+    private List<Element> getShortestVariant(List<Element> pot){
+            while(pot.size() >= alphabet.length){
+                if (containsAlphabet(pot)) {
+                    substringVariantsEnhanced.add(deepCopy(pot));
+                }
+                pot.remove(pot.size() - 1);
+            }
+            return getShortestList(substringVariantsEnhanced);
+    }
+    
+    //  Returns a List with the characters of the string; 
+    //  only letters from the alphabet
     private List<Element> getOnlyLetters(String str){
         for (int i = 0; i < str.length(); i++) {
             if (isItALetterFromTheAlphabet(str.charAt(i))) {
@@ -39,63 +55,6 @@ public class SmallestSubstring {
         }
         
         return shortestSubstring;
-    }
-    
-    private void getAllListsWithAlphabet(String str){
-        List<Element> onlyLetters = getOnlyLetters(str);
-        fillBufferAlphabet();
-        
-        while(onlyLetters.size() >= alphabet.length){
-            if (containsAlphabet(onlyLetters)) {
-                substringVariants.add(deepCopy(onlyLetters));
-            }
-            onlyLetters.remove(0);
-        }
-    }
-    
-    private void enhanceSort(){
-        for (int i = 0; i < substringVariants.size(); i++) {
-            List<Element> list = substringVariants.get(i);
-            while(list.size() >= alphabet.length){
-                if (containsAlphabet(list)) {
-                    substringVariantsEnhanced.add(deepCopy(list));
-                }
-                list.remove(list.size() - 1);
-            }
-        }
-        substringVariants = substringVariantsEnhanced;
-    }
-    
-    private List<Element> getShortestList(){
-        List<Element> shortest = new ArrayList();
-        int size = Integer.MAX_VALUE;
-        
-        for (List<Element> list : substringVariants) {
-            for (List<Element> toCompare : substringVariants) {
-                
-//                printSubstring(list);
-//                printSubstring(toCompare);
-                
-                if (list.size() <= size) {
-                    shortest = list;
-                    size = list.size();
-                }
-            }
-        }
-        return shortest;
-    }
-    
-    public String smallestSubstringContainingTheAlphabet(String str){
-        List<Element> shortest = new ArrayList();
-        getAllListsWithAlphabet(str);
-        enhanceSort();
-        
-        shortest = getShortestList();
-        
-        int begining = shortest.get(0).GetPosition();
-        int end = shortest.get(shortest.size() - 1).GetPosition() + 1;
-        
-        return str.substring(begining, end);
     }
     
     private boolean isItALetterFromTheAlphabet(char letter){
@@ -107,13 +66,44 @@ public class SmallestSubstring {
         return false;
     }
     
+    private boolean containsAlphabet(List<Element> str){
+        for (Element element : str) {
+            for (int i = 0; i < bufferAlphabet.size(); i++) {
+                if (element.GetValue() == bufferAlphabet.get(i)) {
+                    bufferAlphabet.remove(i);
+                    break;
+                }
+            }
+        }
+        boolean isEmpty = bufferAlphabet.isEmpty();
+        fillBufferAlphabet();
+        return isEmpty;
+    }
+    
+    private void fillBufferAlphabet(){
+        bufferAlphabet = new ArrayList<>();
+        for (char letter : alphabet) {
+            bufferAlphabet.add(letter);
+        }
+    }
+    
+    private List<Element> getShortestList(List<List<Element>> listOfLists){
+        List<Element> shortest = new ArrayList();
+        int size = Integer.MAX_VALUE;
+        for (List<Element> list : listOfLists) {
+                if (list.size() <= size) {
+                    shortest = list;
+                    size = list.size();
+                }
+        }
+        return shortest;
+    }
+    
     private List<Element> deepCopy(List<Element> list){
         List<Element> newList = new ArrayList<>();
-        
         for (Element element : list) {
             newList.add(element);
         }
-        
         return newList;
     }
     
