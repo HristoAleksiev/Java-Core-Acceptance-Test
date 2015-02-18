@@ -30,11 +30,8 @@ public class ProcessImage {
         
         
         // change colors
-        double grey;
         
         for (int i = 2; i < pixels.length; i += 4) {
-            
-            grey = (pixels[i] + pixels[i - 1] + pixels[i - 2]) / 3;
             
             // pixels[i - 3] = 100;
             pixels[i + 1] = 255 - pixels[i];
@@ -48,7 +45,7 @@ public class ProcessImage {
        
         raster.setPixels(0, 0, width, height, pixels);
         
-        // write uotput
+        // write output
         output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         output.setData(raster);
         
@@ -58,7 +55,6 @@ public class ProcessImage {
     }
     
     public String readPixelsArray(){
-        String toRetrun = "";
         StringBuilder builder = new StringBuilder();
         
         for (int i = 0; i < pixels.length; i++) {
