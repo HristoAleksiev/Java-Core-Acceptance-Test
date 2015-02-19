@@ -10,7 +10,7 @@ public class ProcessImage {
     private BufferedImage image;
     private BufferedImage output;
     private File imageAsFile;
-    private File outputImage = new File("C:\\Downloads\\TestFolder\\output.png");
+    private final File outputImage = new File("C:\\Downloads\\TestFolder\\output.png");
     private WritableRaster raster;
     public double[] pixels;
     
@@ -30,7 +30,6 @@ public class ProcessImage {
         
         
         // change colors
-        
         for (int i = 2; i < pixels.length; i += 4) {
             
             // pixels[i - 3] = 100;
@@ -41,8 +40,7 @@ public class ProcessImage {
             pixels[i - 2] = 0;
         }
         
-        //  create new raster (changed colors)
-       
+        //  change pixels in raster (changed colors)
         raster.setPixels(0, 0, width, height, pixels);
         
         // write output
@@ -50,18 +48,14 @@ public class ProcessImage {
         output.setData(raster);
         
         ImageIO.write(output, "png", outputImage);
-        
-        
     }
     
     public String readPixelsArray(){
         StringBuilder builder = new StringBuilder();
-        
         for (int i = 0; i < pixels.length; i++) {
             builder.append(pixels[i]);
             builder.append(", ");
         }
-        
         return builder.toString();
     }
 }

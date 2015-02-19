@@ -10,9 +10,9 @@ public class ImagesToGreyScale {
         
         image.convertToGreyscale(filePath);
         
-//        System.out.println(image.pixels.length);
-//        
-        // System.out.println(image.readPixelsArray());
+        //  System.out.println(image.pixels.length);
+        
+        //  System.out.println(image.readPixelsArray());
                 
     }
 }
