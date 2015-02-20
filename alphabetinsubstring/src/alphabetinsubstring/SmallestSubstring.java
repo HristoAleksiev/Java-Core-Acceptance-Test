@@ -23,7 +23,7 @@ public class SmallestSubstring {
     //  from the beggining of the string
     private void getAllListsWithAlphabet(String str){
         List<Element> onlyLetters = getOnlyLetters(str);
-        fillBufferAlphabet();
+        refillBufferAlphabet();
         
         while(onlyLetters.size() >= alphabet.length){
             if (containsAlphabet(onlyLetters)) {
@@ -66,6 +66,10 @@ public class SmallestSubstring {
         return false;
     }
     
+    //  Checks if "str" contains the alphabet
+    //  If a letter is contained in "str", is removed from "bufferAlphabet";
+    //  refilled at the end of the method
+    //  (Inefficient)
     private boolean containsAlphabet(List<Element> str){
         for (Element element : str) {
             for (int i = 0; i < bufferAlphabet.size(); i++) {
@@ -76,11 +80,11 @@ public class SmallestSubstring {
             }
         }
         boolean isEmpty = bufferAlphabet.isEmpty();
-        fillBufferAlphabet();
+        refillBufferAlphabet();
         return isEmpty;
     }
     
-    private void fillBufferAlphabet(){
+    private void refillBufferAlphabet(){
         bufferAlphabet = new ArrayList<>();
         for (char letter : alphabet) {
             bufferAlphabet.add(letter);
@@ -99,6 +103,7 @@ public class SmallestSubstring {
         return shortest;
     }
     
+    //  Needed to make Lists from List<Element>
     private List<Element> deepCopy(List<Element> list){
         List<Element> newList = new ArrayList<>();
         for (Element element : list) {
