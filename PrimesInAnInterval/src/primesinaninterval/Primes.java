@@ -50,7 +50,24 @@ public class Primes {
         }
     }
     
+    //  Another way of printing the List
+    @Override public String toString(){
+        for (int i = 0; i < primes.size(); i++) {
+            
+            builder.append(primes.get(i));
+            
+            if (i == primes.size() - 1) {
+                builder.append(".");
+            }
+            else{
+                builder.append(", ");
+            }
+        }
+        return builder.toString();
+    }
     
+    //  Solution with recursion
+    //  Doesn't handle bigger intervals of numbers
     /*
     private boolean isPrime(int number, int divisor){
         if (number % divisor == 0) {
@@ -72,24 +89,6 @@ public class Primes {
         }
         int incrementedFrom = from + 1;
         findPrimeNumbers(incrementedFrom, to);
-    }
-    */
-    
-    /*
-    //  Another way of printing the List
-    @Override public String toString(){
-        for (int i = 0; i < primes.size(); i++) {
-            
-            builder.append(primes.get(i));
-            
-            if (i == primes.size() - 1) {
-                builder.append(".");
-            }
-            else{
-                builder.append(", ");
-            }
-        }
-        return builder.toString();
     }
     */
 }
