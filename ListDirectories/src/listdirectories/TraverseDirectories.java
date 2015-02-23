@@ -24,13 +24,13 @@ public class TraverseDirectories {
         return uniqueFiles;
     }
     
-    private void addFiles(File[] parentFiles){
-        for (File parentFile : parentFiles) {
-            if (parentFile.isDirectory()) {
-                addFiles(parentFile.listFiles());
+    private void addFiles(File[] children){
+        for (File child : children) {
+            if (child.isDirectory()) {
+                addFiles(child.listFiles());
             } else {
-                if (isFileContentUnique(parentFile)) {
-                    uniqueFiles.add(parentFile);
+                if (isFileContentUnique(child)) {
+                    uniqueFiles.add(child);
                 }
             }
         }
@@ -69,10 +69,10 @@ public class TraverseDirectories {
             }
             fileInput.close();
         }
-        catch(FileNotFoundException nf){
+        catch(FileNotFoundException notFound){
             System.out.println("The file was not found: " + file);
         }
-        catch(IOException io){
+        catch(IOException IO){
             System.out.println("File could not be read: " + file);
         }
         
