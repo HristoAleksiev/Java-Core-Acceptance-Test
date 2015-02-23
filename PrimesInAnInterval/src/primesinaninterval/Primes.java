@@ -16,7 +16,6 @@ public class Primes {
         
         if (primes.isEmpty()) {
             System.out.println("There are no primes in the given interval!");
-            // return;
         }
         
         return primes;
@@ -50,24 +49,8 @@ public class Primes {
         }
     }
     
-    //  Another way of printing the List
-    @Override public String toString(){
-        for (int i = 0; i < primes.size(); i++) {
-            
-            builder.append(primes.get(i));
-            
-            if (i == primes.size() - 1) {
-                builder.append(".");
-            }
-            else{
-                builder.append(", ");
-            }
-        }
-        return builder.toString();
-    }
-    
     //  Solution with recursion
-    //  Doesn't handle bigger intervals of numbers
+    //  Throws an exception for bigger intervals of numbers
     /*
     private boolean isPrime(int number, int divisor){
         if (number % divisor == 0) {

@@ -5,7 +5,6 @@ import java.util.List;
 public class PrimesInAnInterval {
 
     public static void main(String[] args) throws Exception {
-        
         Primes primes = new Primes();
         List primesList;
         
